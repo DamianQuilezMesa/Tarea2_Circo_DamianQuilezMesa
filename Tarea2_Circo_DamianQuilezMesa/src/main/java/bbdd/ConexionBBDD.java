@@ -16,31 +16,32 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 
 public class ConexionBBDD {
 
-    private static ConexionBBDD instance;
-    private MysqlDataSource dataSource;
+	private static ConexionBBDD instance;
+	private MysqlDataSource dataSource;
 
-    private ConexionBBDD() {
-        Properties prop = new Properties();
-        try (FileInputStream fis = new FileInputStream("src/main/resources/application.properties")) {
-            prop.load(fis);
-            dataSource = new MysqlDataSource();
-            dataSource.setURL(prop.getProperty("url"));
-            dataSource.setUser(prop.getProperty("usuBBDD"));
-            dataSource.setPassword(prop.getProperty("passBBDD"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	private ConexionBBDD() {
+		Properties prop = new Properties();
+		try (FileInputStream fis = new FileInputStream(
+				"src/main/resources/application.properties")) {
+			prop.load(fis);
+			dataSource = new MysqlDataSource();
+			dataSource.setURL(prop.getProperty("url"));
+			dataSource.setUser(prop.getProperty("usuBBDD"));
+			dataSource.setPassword(prop.getProperty("passBBDD"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-    public static synchronized ConexionBBDD getInstance() {
-        if (instance == null) {
-            instance = new ConexionBBDD();
-        }
-        return instance;
-    }
+	public static synchronized ConexionBBDD getInstance() {
+		if (instance == null) {
+			instance = new ConexionBBDD();
+		}
+		return instance;
+	}
 
-    public Connection getConnection() throws SQLException {
-        // 🔹 Devuelve SIEMPRE una conexión nueva
-        return dataSource.getConnection();
-    }
+	public Connection getConnection() throws SQLException {
+
+		return dataSource.getConnection();
+	}
 }

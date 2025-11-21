@@ -1,7 +1,8 @@
 /META-INF/
+/util/
 /bbdd/
-/entidades/
+/controlador/
+/dao/
+/dto/
 /modelo/
 /vista/
-/dao/
-/controlador/

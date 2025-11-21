@@ -1,21 +1,28 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Artista extends Persona {
 
 	private Long idArt;
 	private String apodo = null;
-	private Set<Especialidad> especialidades;
+	private ArrayList<Especialidad> especialidades;
 	private ArrayList<Numero> numeros;
 
 	public Artista() {
 		super();
 	}
 
-	public Artista(Long idArt, String apodo, Set<Especialidad> especialidades,
-			ArrayList<Numero> numeros) {
+	public Artista(Long idArt, String apodo,
+			ArrayList<Especialidad> especialidades) {
+		super();
+		this.idArt = idArt;
+		this.apodo = apodo;
+		this.especialidades = especialidades;
+	}
+
+	public Artista(Long idArt, String apodo,
+			ArrayList<Especialidad> especialidades, ArrayList<Numero> numeros) {
 		super();
 		this.idArt = idArt;
 		this.apodo = apodo;
@@ -39,11 +46,11 @@ public class Artista extends Persona {
 		this.apodo = apodo;
 	}
 
-	public Set<Especialidad> getEspecialidades() {
+	public ArrayList<Especialidad> getEspecialidades() {
 		return especialidades;
 	}
 
-	public void setEspecialidades(Set<Especialidad> especialidades) {
+	public void setEspecialidades(ArrayList<Especialidad> especialidades) {
 		this.especialidades = especialidades;
 	}
 

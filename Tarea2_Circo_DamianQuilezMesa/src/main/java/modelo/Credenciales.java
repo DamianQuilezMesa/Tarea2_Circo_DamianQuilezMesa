@@ -3,18 +3,18 @@ package modelo;
 public class Credenciales {
 
 	private Long id;
-	private String nombreUsuario;
-	private String password;
+	private String nomUsuario;
+	private String contrasena;
 	private Perfiles perfil;
 
 	public Credenciales() {
 	}
 
-	public Credenciales(Long id, String nombreUsuario, String password,
+	public Credenciales(Long id, String nomUsuario, String password,
 			Perfiles perfil) {
 		this.id = id;
-		this.nombreUsuario = nombreUsuario;
-		this.password = password;
+		this.nomUsuario = nomUsuario;
+		this.contrasena = password;
 		this.perfil = perfil;
 	}
 
@@ -26,20 +26,20 @@ public class Credenciales {
 		this.id = id;
 	}
 
-	public String getNombreUsuario() {
-		return nombreUsuario;
+	public String getNomUsuario() {
+		return nomUsuario;
 	}
 
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+	public void setNomUsuario(String nomUsuario) {
+		this.nomUsuario = nomUsuario;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getContrasena() {
+		return contrasena;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	public Perfiles getPerfil() {
@@ -52,8 +52,8 @@ public class Credenciales {
 
 	@Override
 	public String toString() {
-		return "Credenciales [id=" + id + ", nombre=" + nombreUsuario
-				+ ", password=" + password + ", perfil=" + perfil + "]";
+		return "Credenciales [id=" + id + ", nombre=" + nomUsuario
+				+ ", password=" + contrasena + ", perfil=" + perfil + "]";
 	}
 
 }

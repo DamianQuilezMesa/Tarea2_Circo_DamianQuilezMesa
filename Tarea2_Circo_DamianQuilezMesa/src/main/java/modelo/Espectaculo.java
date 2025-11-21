@@ -25,7 +25,6 @@ public class Espectaculo implements Serializable {
 		this.idCoord = idCoord;
 	}
 
-
 	public Long getId() {
 		return id;
 	}
@@ -66,7 +65,6 @@ public class Espectaculo implements Serializable {
 		this.idCoord = idCoord;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Espectaculo [id=" + id + ", nombre=" + nombre + ", fechaini="

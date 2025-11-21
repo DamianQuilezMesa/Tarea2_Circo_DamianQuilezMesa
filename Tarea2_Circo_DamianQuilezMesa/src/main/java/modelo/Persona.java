@@ -5,7 +5,7 @@ public class Persona {
 	private Long id;
 	private String email;
 	private String nombre;
-	private String nacionalidad;
+	private String pais;
 
 	public Persona() {
 	}
@@ -14,7 +14,7 @@ public class Persona {
 		this.id = id;
 		this.email = email;
 		this.nombre = nombre;
-		this.nacionalidad = nacionalidad;
+		this.pais = nacionalidad;
 	}
 
 	public Long getId() {
@@ -41,18 +41,19 @@ public class Persona {
 		this.nombre = nombre;
 	}
 
-	public String getNacionalidad() {
-		return nacionalidad;
+
+	public String getPais() {
+		return pais;
 	}
 
-	public void setNacionalidad(String nacionalidad) {
-		this.nacionalidad = nacionalidad;
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 
 	@Override
 	public String toString() {
 		return "Persona [id=" + id + ", email=" + email + ", nombre=" + nombre
-				+ ", nacionalidad=" + nacionalidad + "]";
+				+ ", nacionalidad=" + pais + "]";
 	}
 
 }

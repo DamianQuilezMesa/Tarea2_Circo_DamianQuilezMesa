@@ -14,7 +14,8 @@ public class Numero {
 	public Numero() {
 	}
 
-	public Numero(Long id, int orden, String nombre, Double duracion, Espectaculo espectaculo, ArrayList<Artista> artistas) {
+	public Numero(Long id, int orden, String nombre, Double duracion,
+			Espectaculo espectaculo, ArrayList<Artista> artistas) {
 		super();
 		this.id = id;
 		this.orden = orden;
@@ -23,7 +24,6 @@ public class Numero {
 		this.espectaculo = espectaculo;
 		this.artistas = artistas;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -71,10 +71,5 @@ public class Numero {
 				+ ", duracion=" + duracion + ", espectaculo=" + espectaculo
 				+ ", artistas=" + artistas + "]";
 	}
-	
-	
-
-	
 
 }
-	

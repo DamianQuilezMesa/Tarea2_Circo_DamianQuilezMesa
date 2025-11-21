@@ -1,0 +1,148 @@
+-- Crea la base de datos
+CREATE DATABASE circo_damian
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
+
+USE circo_damian;
+
+
+CREATE TABLE Persona (
+    idPersona BIGINT AUTO_INCREMENT,
+    nombre VARCHAR(20) NOT NULL,
+    apellido1 VARCHAR(20) NOT NULL,
+    apellido2 VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    pais VARCHAR(20) NOT NULL,
+    nombreusuario VARCHAR(30) NOT NULL UNIQUE,
+    contrasena VARCHAR(20) NOT NULL,
+    perfil VARCHAR(20) NOT NULL,
+    CONSTRAINT pk_persona PRIMARY KEY (idPersona)
+);
+
+-- Tabla Coordinacion
+CREATE TABLE Coordinacion (
+    idCoord BIGINT NOT NULL AUTO_INCREMENT UNIQUE,
+    idPersona BIGINT NOT NULL UNIQUE,
+    senior BOOLEAN DEFAULT FALSE,
+    fechaSenior DATE DEFAULT NULL,
+    CONSTRAINT pk_coordinacion PRIMARY KEY (idCoord,idPersona),
+    CONSTRAINT fk_coordinacion_persona FOREIGN KEY (idPersona) REFERENCES Persona(idPersona) ON DELETE CASCADE
+);
+
+-- Tabla Artista
+CREATE TABLE Artista (
+    idArt BIGINT NOT NULL AUTO_INCREMENT UNIQUE,
+    idPersona BIGINT NOT NULL UNIQUE,
+    apodo VARCHAR(50) DEFAULT NULL,
+    especialidades VARCHAR(255),
+    CONSTRAINT pk_artista PRIMARY KEY (idArt,idPersona),
+    CONSTRAINT fk_artista_persona FOREIGN KEY (idPersona) REFERENCES Persona(idPersona) ON DELETE CASCADE
+);
+
+
+-- Tabla Espectaculo
+CREATE TABLE Espectaculo (
+    idEspectaculo BIGINT AUTO_INCREMENT NOT NULL UNIQUE,
+    nombreEsp VARCHAR(25) NOT NULL UNIQUE,
+    fechaIni DATE NOT NULL,
+    fechaFin DATE NOT NULL,
+    idCoord BIGINT NOT NULL,
+    CONSTRAINT pk_espectaculo PRIMARY KEY (idEspectaculo,nombreEsp),
+    CONSTRAINT fk_espectaculo_coordinacion FOREIGN KEY (idCoord) REFERENCES Coordinacion(idCoord) ON DELETE CASCADE
+);
+
+-- Tabla Numero
+CREATE TABLE Numero (
+    idNumero BIGINT AUTO_INCREMENT NOT NULL UNIQUE,
+    nombreNumero VARCHAR(50) NOT NULL,
+    duracion DECIMAL(3,1) NOT NULL,
+    orden INT NOT NULL,
+    idEspectaculo BIGINT NOT NULL,
+    CONSTRAINT pk_numero PRIMARY KEY (idNumero),
+    CONSTRAINT fk_numero_espectaculo FOREIGN KEY (idEspectaculo) REFERENCES Espectaculo(idEspectaculo) ON DELETE CASCADE,
+    CONSTRAINT uq_orden_por_espectaculo UNIQUE (idEspectaculo, orden)
+);
+
+-- Relación N:M Numero ↔ Artista
+CREATE TABLE Numero_Artista (
+    idNumero BIGINT NOT NULL,
+    idArt BIGINT NOT NULL,
+    CONSTRAINT pk_numero_artista PRIMARY KEY (idNumero, idArt),
+    CONSTRAINT fk_na_numero FOREIGN KEY (idNumero) REFERENCES Numero(idNumero) ON DELETE CASCADE,
+    CONSTRAINT fk_na_artista FOREIGN KEY (idArt) REFERENCES Artista(idArt) ON DELETE CASCADE
+);
+
+
+INSERT INTO Persona (nombre, apellido1, apellido2, email, pais, nombreusuario, contrasena, perfil)
+VALUES 
+('Carlos', 'García', 'López', 'carlos@circo.com','España','cgarcia','pass123','COORDINACION'),
+('Lucía', 'Martínez', 'Santos', 'lucia@circo.com','España','lmartinez','pass123','ARTISTA'),
+('Miguel', 'Fernández', 'Ruiz', 'miguel@circo.com','España','mfernandez','pass123','ARTISTA'),
+('Ana', 'Torres', 'Gómez', 'ana@circo.com','España','atorres','pass123','COORDINACION'),
+('Javier', 'Hernández', 'Pérez', 'javier@circo.com','España','jhernandez','pass123','ARTISTA'),
+('Sofía', 'Ramírez', 'Díaz', 'sofia@circo.com','España','sramirez','pass123','ARTISTA'),
+('David', 'Moreno', 'Castro', 'david@circo.com','España','dmoreno','pass123','COORDINACION'),
+('Elena', 'Navarro', 'Blanco', 'elena@circo.com','España','enavarro','pass123','ARTISTA'),
+('Pablo', 'Ortega', 'Suárez', 'pablo@circo.com','España','portega','pass123','ARTISTA'),
+('María', 'Vega', 'Domínguez', 'maria@circo.com','España','mvega','pass123','COORDINACION');
+
+
+INSERT INTO Coordinacion (idPersona, senior, fechaSenior)
+VALUES 
+(1, FALSE, NULL),   -- Carlos
+(4, FALSE, NULL),   -- Ana
+(7, FALSE, NULL),   -- David
+(10, FALSE, NULL);  -- María
+
+
+INSERT INTO Artista (idPersona, apodo, especialidades)
+VALUES
+(2, 'Luz', 'HUMOR,EQUILIBRISMO,ACROBACIA'),
+(3, 'Miki', 'MALABARISMO'),
+(5, 'Javi', 'EQUILIBRISMO,ACROBACIA'),
+(6, 'Sofi', 'HUMOR,EQUILIBRISMO,ACROBACIA'),
+(8, 'Eli', 'ACROBACIA,MALABARISMO'),
+(9, 'Pablito', 'HUMOR,EQUILIBRISMO,ACROBACIA,MALABARISMO');
+
+
+
+
+INSERT INTO Espectaculo (idEspectaculo, nombreEsp, fechaIni, fechaFin, idCoord) VALUES
+(1,'Circo Fantasía','2024-01-01','2024-06-01',1),
+(2,'Magia y Humor','2024-02-15','2024-07-15',2),
+(3,'Equilibrio Total','2024-03-01','2024-08-01',3),
+(4,'Noche de Malabares','2024-04-01','2024-09-01',4);
+
+
+INSERT INTO Numero (idNumero, nombreNumero, duracion, orden, idEspectaculo) VALUES
+-- Espectáculo 1
+(1,'Vuelo acrobático',10.0,1,1),
+(2,'Magia de luces',8.0,2,1),
+(3,'Gran final de humor',7.0,3,1),
+
+-- Espectáculo 2
+(4,'Payasadas',6.0,1,2),
+(5,'Trucos imposibles',9.0,2,2),
+(6,'Magia cómica',8.0,3,2),
+
+-- Espectáculo 3
+(7,'Equilibrio extremo',12.0,1,3),
+(8,'Acrobacias aéreas',10.0,2,3),
+(9,'Humor en la cuerda floja',7.0,3,3),
+
+-- Espectáculo 4
+(10,'Malabares con fuego',9.0,1,4),
+(11,'Ilusiones ópticas',7.0,2,4),
+(12,'Gran show de acrobacias',11.0,3,4);
+
+INSERT INTO Numero_Artista (idNumero, idArt) VALUES
+(1,1), -- Vuelo acrobático → Lucía
+(2,2), -- Magia de luces → Miguel
+(3,3), -- Payasadas → Javier
+(4,4), -- Equilibrio extremo → Sofía
+(5,5), -- Malabares con fuego → Elena
+(6,6); -- Ilusiones ópticas → Pablo
+
+
+
+
