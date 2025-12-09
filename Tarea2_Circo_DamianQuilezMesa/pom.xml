@@ -11,5 +11,10 @@
     <artifactId>mysql-connector-j</artifactId>
     <version>9.4.0</version>
 </dependency>
-</dependencies>
+    	<dependency>
+    		<groupId>com.damianqm</groupId>
+    		<artifactId>TAREA1_damianquilez</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+    	</dependency>
+    </dependencies>
 </project>
